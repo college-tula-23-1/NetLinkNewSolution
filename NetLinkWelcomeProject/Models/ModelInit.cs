@@ -16,65 +16,73 @@ namespace NetLinkWelcomeProject.Models
 
         static ModelInit()
         {
-            Countries.Add(new("Russia"));
-            Countries.Add(new("Usa"));
-            Countries.Add(new("China"));
-            Countries.Add(new("South Korea"));
+            Country russia = new("Russia");
+            Country usa = new("Usa");
+            Country china = new("China");
+            Country korea = new("South Korea");
+            Countries.AddRange([russia, usa, china, korea]);
 
-            Cities.Add(new("Moscow", Countries[0]));
-            Cities.Add(new("St Peterburg", Countries[0]));
-            Cities.Add(new("Tula", Countries[0]));
-            Cities.Add(new("Ekaterinburg", Countries[0]));
-            Countries[0].Capital = Cities[0];
+            City moscow = new("Moscow", russia);
+            City piter = new("St Peterburg", russia);
+            City tula = new("Tula", russia);
+            City eburg = new("Ekaterinburg", russia);
+            russia.Capital = moscow;
+            Cities.AddRange([moscow, piter, tula, eburg]);
 
-            Cities.Add(new("Washington", Countries[1]));
-            Cities.Add(new("New York", Countries[1]));
-            Cities.Add(new("Los Angeles", Countries[1]));
-            Cities.Add(new("Boston", Countries[1]));
-            Countries[1].Capital = Cities[4];
+            City washington = new("Washington", usa);
+            City newyork = new("New York", usa);
+            City losangeles = new("Los Angeles", usa);
+            City boston = new("Boston", usa);
+            usa.Capital = washington;
+            Cities.AddRange([washington, newyork, losangeles, boston]);
 
-            Cities.Add(new("Beijing", Countries[2]));
-            Cities.Add(new("Shenzhen", Countries[2]));
-            Countries[2].Capital = Cities[8];
+            City beijing = new("Beijing", china);
+            City shenzhen = new("Shenzhen", china);
+            china.Capital = beijing;
+            Cities.AddRange([beijing, shenzhen]);
 
-            Cities.Add(new("Seoul", Countries[3]));
-            Countries[3].Capital = Cities[10];
+            City seoul = new("Seoul", korea);
+            korea.Capital = seoul;
+            Cities.Add(seoul);
 
-            Companies.Add(new("Yandex", Countries[0], Cities[0]));
-            Companies.Add(new("Mail Group", Countries[0], Cities[0]));
-            Companies.Add(new("Piter Soft", Countries[0], Cities[1]));
-            Companies.Add(new("Techart", Countries[0], Cities[2]));
+            Company yandex = new("Yandex", russia, moscow);
+            Company mail = new("Mail Group", russia, moscow);
+            Company psoft = new("Piter Soft", russia, piter);
+            Company techart = new("Techart", russia, tula);
+            Companies.AddRange([yandex, mail, psoft, techart]);
 
-            Companies.Add(new("Google", Countries[1], Cities[6]));
-            Companies.Add(new("Amazon", Countries[1], Cities[5]));
-            Companies.Add(new("Microsoft", Countries[1], Cities[6]));
+            Company google = new("Google", usa, losangeles);
+            Company amazon = new("Amazon", usa, newyork);
+            Company microsoft = new("Microsoft", usa, losangeles);
+            Companies.AddRange([google, amazon, microsoft]);
 
-            Companies.Add(new("Xiaomi", Countries[2], Cities[8]));
-            Companies.Add(new("ZTE", Countries[2], Cities[9]));
+            Company xiaomi = new("Xiaomi", china, beijing);
+            Company zte = new("ZTE", china, shenzhen);
+            Companies.AddRange([xiaomi, zte]);
 
-            Companies.Add(new("Sumsung", Countries[3], Cities[10]));
+            Company samsung = new("Sumsung", korea, seoul);
+            Companies.Add(samsung);
 
-            Positions.Add(new("Manager", 100000));
-            Positions.Add(new("Developer", 160000));
-            Positions.Add(new("Tester", 130000));
-            Positions.Add(new("Saler", 110000));
+            Position manager = new("Manager", 100000);
+            Position developer = new("Developer", 160000);
+            Position tester = new("Tester", 130000);
+            Position saler = new("Saler", 110000);
+            Positions.AddRange([developer, manager, tester, saler]);
 
-            Employees.Add(new("Jimmy", new(1990, 10, 21), Companies[0], Positions[0], 1.1));
-            Employees.Add(new("Tommy", new(2001, 1, 11), Companies[1], Positions[0], 1.2));
-            Employees.Add(new("Sammy", new(1998, 12, 15), Companies[2], Positions[0], 1.15));
-            Employees.Add(new("Bobby", new(2001, 6, 29), Companies[1], Positions[1], 1.18));
-            Employees.Add(new("Jimmy", new(1987, 8, 16), Companies[0], Positions[1], 1.22));
-            Employees.Add(new("Lenny", new(1993, 10, 8), Companies[3], Positions[0], 1.3));
-            Employees.Add(new("Tommy", new(1990, 9, 18), Companies[2], Positions[1], 1.5));
-            Employees.Add(new("Jenny", new(2000, 1, 11), Companies[0], Positions[2], 1.1));
-            Employees.Add(new("Kenny", new(2001, 5, 28), Companies[4], Positions[0], 1.05));
-            Employees.Add(new("Sammy", new(1995, 12, 16), Companies[5], Positions[0], 1.10));
-            Employees.Add(new("Jimmy", new(1989, 3, 10), Companies[4], Positions[0], 1.12));
-            Employees.Add(new("Bobby", new(1990, 8, 23), Companies[7], Positions[0], 1.1));
-            Employees.Add(new("Mikky", new(2001, 1, 7), Companies[3], Positions[1], 1.4));
-            Employees.Add(new("Sandy", new(1997, 11, 18), Companies[1], Positions[2], 1.1));
-            Employees.Add(new("Tonny", new(1998, 7, 21), Companies[0], Positions[3], 1.7));
-
+            Employees.Add(new("Jimmy", new(1990, 10, 21), yandex, manager, 1.1));
+            Employees.Add(new("Tommy", new(2001, 1, 11), mail, manager, 1.2));
+            Employees.Add(new("Sammy", new(1998, 12, 15), psoft, manager, 1.15));
+            Employees.Add(new("Bobby", new(2001, 6, 29), mail, developer, 1.18));
+            Employees.Add(new("Jimmy", new(1987, 8, 16), yandex, developer, 1.22));
+            Employees.Add(new("Lenny", new(1993, 10, 8), techart, manager, 1.3));
+            Employees.Add(new("Tommy", new(1990, 9, 18), psoft, developer, 1.5));
+            Employees.Add(new("Jenny", new(2000, 1, 11), yandex, tester, 1.1));
+            Employees.Add(new("Kenny", new(2001, 5, 28), google, manager, 1.05));
+            Employees.Add(new("Sammy", new(1995, 12, 16), amazon, manager, 1.10));
+            Employees.Add(new("Jimmy", new(1989, 3, 10), google, manager, 1.12));
+            Employees.Add(new("Bobby", new(1990, 8, 23), xiaomi, manager, 1.1));
+            Employees.Add(new("Mikky", new(2001, 1, 7), techart, developer, 1.4));
+            Employees.Add(new("Sandy", new(1997, 11, 18), mail, tester, 1.1));
         }
     }
 }
