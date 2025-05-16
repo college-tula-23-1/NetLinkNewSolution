@@ -11,6 +11,7 @@ namespace NetLinkWelcomeProject.Models
         public string Title { get; set; } = null!;
         public Country? Country { get; set; }
         public City? City { get; set; }
+        public List<Employee> Employees { get; set; } = new();
 
         public Company() { }
         public Company(string title) : this(title, null, null) { }

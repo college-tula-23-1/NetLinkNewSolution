@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetLinkWelcomeProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -81,6 +82,151 @@ namespace NetLinkWelcomeProject
             foreach (var item in pairsCitiesMethods)
                 Console.WriteLine(item);
             Console.WriteLine();
+        }
+
+        public static void LinqSelectTwoExample()
+        {
+            var employees = ModelInit.Employees;
+
+            var selectOperations = from employee in employees
+                                   select new
+                                   {
+                                       employee.Name,
+                                       Position = employee.Position?.Title,
+                                       employee.Salary,
+                                   };
+            //Console.WriteLine(selectOperations.First().GetType());
+            foreach (var e in selectOperations)
+                Console.WriteLine(e);
+            Console.WriteLine();
+
+            var selectMethods = employees.Select(employee => new
+            {
+                employee.Name,
+                Position = employee.Position?.Title,
+                employee.Salary,
+            });
+
+            foreach (var e in selectMethods)
+                Console.WriteLine(e);
+            Console.WriteLine();
+            Console.WriteLine();
+
+            var countries = ModelInit.Countries;
+            var cities = ModelInit.Cities;
+
+            var countriesCitiesOpers = from country in countries
+                                       from city in cities
+                                       where (city.Country == country)
+                                       select new
+                                       {
+                                           Country = country.Title,
+                                           City = city.Title,
+                                       };
+
+            foreach (var item in countriesCitiesOpers)
+                Console.WriteLine(item);
+            Console.WriteLine();
+        }
+
+        public static void LinqWhereExample()
+        {
+            var employees = ModelInit.Employees;
+
+            var emplyeesRussianOperators = from e in employees
+                                           where e?.Company?.Country?.Title == "Russia"
+                                                 && e.Age >= 25
+                                           select e;
+
+            foreach (var e in emplyeesRussianOperators)
+                Console.WriteLine(e);
+            Console.WriteLine();
+
+            var employeeRussianMethods = employees.Where(e =>
+                e?.Company?.Country?.Title == "Russia" && e.Age >= 25);
+
+            foreach (var e in employeeRussianMethods)
+                Console.WriteLine(e);
+            Console.WriteLine();
+
+            //var companies = ModelInit.Companies;
+            //foreach(var c in companies)
+            //{
+            //    Console.WriteLine(c.Title);
+            //    foreach(var e in c.Employees)
+            //        Console.WriteLine($"\t{e.Name}");
+            //}
+        }
+
+        public static void LinqOrderByExample()
+        {
+            var employees = ModelInit.Employees;
+
+            foreach (var e in employees)
+                Console.WriteLine(e);
+            Console.WriteLine();
+
+            //var employeesSortNameOperators = from e in employees
+            //                                 orderby e.Name descending
+            //                                 select e;
+
+            //foreach (var e in employeesSortNameOperators)
+            //    Console.WriteLine(e);
+            //Console.WriteLine();
+
+            //var employeesSortAgeOperators = from e in employees
+            //                                 orderby e.Age
+            //                                 select e;
+
+            //foreach (var e in employeesSortAgeOperators)
+            //    Console.WriteLine(e);
+            //Console.WriteLine();
+
+            //var employeesSortNameAgeOperators = from e in employees
+            //                                    orderby e.Name, e.Age descending
+            //                                    select e;
+
+            //foreach (var e in employeesSortNameAgeOperators)
+            //    Console.WriteLine(e);
+            //Console.WriteLine();
+
+
+            // Methods
+            //var employeesSortNameMethods = employees.OrderBy(e => e.Name);
+            //var employeesSortNameMethods = employees.OrderByDescending(e => e.Name);
+
+            //foreach (var e in employeesSortNameMethods)
+            //    Console.WriteLine(e);
+            //Console.WriteLine();
+
+            //var employeesSortAgeMethods = employees.OrderBy(e => e.Age);
+
+            //foreach (var e in employeesSortAgeMethods)
+            //    Console.WriteLine(e);
+            //Console.WriteLine();
+
+            //var employeesSortNameAgeMethods = employees.OrderBy(e => e.Name)
+            //                                           .ThenByDescending(e => e.Age);
+
+            //foreach (var e in employeesSortNameAgeMethods)
+            //    Console.WriteLine(e);
+            //Console.WriteLine();
+
+
+            var employeesSortCompanyMethods = employees
+                .OrderBy(e => e.Company?.Title, new LengthStringComparer()!);
+
+            foreach (var e in employeesSortCompanyMethods)
+                Console.WriteLine(e);
+            Console.WriteLine();
+        }
+    }
+
+    class LengthStringComparer : IComparer<String>
+    {
+        public int Compare(string? x, string? y)
+        {
+            return (x?.Length ?? 0) - (y?.Length ?? 0);
         }
     }
 }

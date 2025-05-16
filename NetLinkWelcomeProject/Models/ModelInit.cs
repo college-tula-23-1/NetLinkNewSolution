@@ -28,6 +28,7 @@ namespace NetLinkWelcomeProject.Models
             City eburg = new("Ekaterinburg", russia);
             russia.Capital = moscow;
             Cities.AddRange([moscow, piter, tula, eburg]);
+            russia.Cities.AddRange([moscow, piter, tula, eburg]);
 
             City washington = new("Washington", usa);
             City newyork = new("New York", usa);
@@ -35,15 +36,18 @@ namespace NetLinkWelcomeProject.Models
             City boston = new("Boston", usa);
             usa.Capital = washington;
             Cities.AddRange([washington, newyork, losangeles, boston]);
+            usa.Cities.AddRange([washington, newyork, losangeles, boston]);
 
             City beijing = new("Beijing", china);
             City shenzhen = new("Shenzhen", china);
             china.Capital = beijing;
             Cities.AddRange([beijing, shenzhen]);
+            china.Cities.AddRange([beijing, shenzhen]);
 
             City seoul = new("Seoul", korea);
             korea.Capital = seoul;
             Cities.Add(seoul);
+            korea.Cities.AddRange([seoul]);
 
             Company yandex = new("Yandex", russia, moscow);
             Company mail = new("Mail Group", russia, moscow);
@@ -83,6 +87,15 @@ namespace NetLinkWelcomeProject.Models
             Employees.Add(new("Bobby", new(1990, 8, 23), xiaomi, manager, 1.1));
             Employees.Add(new("Mikky", new(2001, 1, 7), techart, developer, 1.4));
             Employees.Add(new("Sandy", new(1997, 11, 18), mail, tester, 1.1));
+
+            //yandex.Employees = Employees.Where(e => e.Company == yandex).ToList();
+            //mail.Employees = Employees.Where(e => e.Company == mail).ToList();
+            //psoft.Employees = Employees.Where(e => e.Company == psoft).ToList();
+            //techart.Employees = Employees.Where(e => e.Company == techart).ToList();
+            foreach(Company company in Companies)
+                company.Employees = Employees.Where(e => e.Company == company).ToList();
+
         }
     }
 }
+

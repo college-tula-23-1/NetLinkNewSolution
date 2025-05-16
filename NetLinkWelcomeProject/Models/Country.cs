@@ -10,6 +10,7 @@ namespace NetLinkWelcomeProject.Models
     {
         public string Title { get; set; } = "";
         public City? Capital { get; set; }
+        public List<City> Cities { get; set; } = new();
 
         public Country() { }
         public Country(string title) : this(title, null) { }
